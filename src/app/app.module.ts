@@ -20,6 +20,7 @@ import {AllInOnePageComponent} from "./pages/all-in-one-page.component";
 import {LoginPageComponent} from "./pages/login-page.component";
 import { LoggedInGuard } from "app/shared/logged-in-guard";
 import { DashboardPageComponent } from './pages/dashboard-page.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 const routes: Routes = [
     { path: 'register', component: RegisterPageComponent },
@@ -41,7 +42,8 @@ const routes: Routes = [
         RegisterPageComponent,
         AllInOnePageComponent,
         LoginPageComponent,
-        DashboardPageComponent
+        DashboardPageComponent,
+        FavoritesComponent
     ],
     imports: [
         BrowserModule,

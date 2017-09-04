@@ -1,0 +1,13 @@
+table {
+    tr {
+        .actions {
+            display: none;
+        }
+
+        &:hover {
+            .actions {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+<form [formGroup]="favorite" [hidden]="!addFormVisible">
+    <h2>Add a new website</h2>
+
+    <div class="form-group">
+        <label for>Name:</label>
+        <input type="text" formControlName="fName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for>URL:</label>
+        <input type="url" formControlName="fUrl" class="form-control">
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" (click)="addFavorite()">Add website</button>
+        <button class="btn btn-default" (click)="togleAddForm()">Cancel</button>
+    </div>
+
+</form>
+
+
+<div class="panel">
+    <div class="panel panel-head">
+        <div class="col-sm-6">
+            <h2>Favorite sites</h2>
+        </div>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" placeholder="Filter by website name or URL">
+        </div>
+        <div class="col-sm-2 btn-group" role="group">
+            <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-th-large"></i></button>
+            <button type="button" class="btn btn-primary" (click)="togleAddForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button>
+
+        </div>
+
+
+
+    </div>
+    <div class="panel panel-body">
+        <!--<ul>
+            <li *ngFor="let fav of favoritesList | async">
+                <div class="row">
+                    <label>Name:</label> <span [innerText]="fav.fName"></span>
+                </div>
+                <div class="row">
+                    <label>URL:</label> <span [innerText]="fav.fUrl"></span>
+                </div>
+            </li>
+        </ul>-->
+        <table class="table table-hover">
+            <thead>
+                <th>Website name</th>
+                <th>URL</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fav of favoritesList | async">
+                    <td [innerText]="fav.fName"></td>
+                    <td [innerText]="fav.fUrl"></td>
+                    <td>
+                        <div class="actions">
+                            <i class="glyphicon glyphicon-edit" (click)="updateFavorite(fav)"></i>
+                            <i class="glyphicon glyphicon-trash" (click)="removeFavorite(fav)"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
