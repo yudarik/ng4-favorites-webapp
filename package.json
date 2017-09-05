@@ -9,7 +9,8 @@
     "test": "ng test",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
-    "postinstall": "ng serve"
+    "postinstall": "ng serve",
+    "preinstall": "npm install -g @angular/cli"
   },
   "private": true,
   "dependencies": {
