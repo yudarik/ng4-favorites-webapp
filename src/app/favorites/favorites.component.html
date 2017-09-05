@@ -1,8 +1,8 @@
-<form [formGroup]="favorite" [hidden]="!addFormVisible">
+<form [formGroup]="favorite" [hidden]="!addFormVisible" class="container">
     <h2>Add a new website</h2>
 
     <div class="form-group">
-        <label for>Name:</label>
+        <label for>Website name:</label>
         <input type="text" formControlName="fName" class="form-control">
     </div>
     <div class="form-group">
@@ -13,52 +13,100 @@
         <button class="btn btn-primary" (click)="addFavorite()">Add website</button>
         <button class="btn btn-default" (click)="togleAddForm()">Cancel</button>
     </div>
-
 </form>
 
 
-<div class="panel">
-    <div class="panel panel-head">
+<ng-template #updateContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit website</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for>Website Name:</label>
+            <input type="text" [(ngModel)]="fname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for>URL:</label>
+            <input type="url" [(ngModel)]="fUrl" class="form-control">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('approve')">Save changes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="d('dismiss')">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #removeContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Remove favorite website?</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>This action will remove the favorite website permanently.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('approve')">Remove website</button>
+        <button type="button" class="btn btn-outline-dark" (click)="d('dismiss')">Cancel</button>
+    </div>
+</ng-template>
+
+<div class="container">
+    <div class="row">
         <div class="col-sm-6">
             <h2>Favorite sites</h2>
         </div>
         <div class="col-sm-4">
-            <input type="text" class="form-control" placeholder="Filter by website name or URL">
+            <input type="text" class="form-control" placeholder="Filter by website name or URL" [(ngModel)]="searchQuery">
         </div>
-        <div class="col-sm-2 btn-group" role="group">
-            <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-th-large"></i></button>
-            <button type="button" class="btn btn-primary" (click)="togleAddForm()"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button>
-
+        <div class="col-sm-2 btn-group-md" role="group">
+            <button type="button" class="btn btn-md btn-default" (click)="toggleGridView()">
+                <fa [name]="'th-large'" [hidden]="gridView"></fa>
+                <fa [name]="'th-list'" [hidden]="!gridView"></fa>
+            </button>
+            <button type="button" class="btn btn-md btn-primary" (click)="togleAddForm()"><fa [name]="'plus'"></fa>&nbsp;Add</button>
         </div>
-
-
-
     </div>
-    <div class="panel panel-body">
-        <!--<ul>
-            <li *ngFor="let fav of favoritesList | async">
-                <div class="row">
-                    <label>Name:</label> <span [innerText]="fav.fName"></span>
-                </div>
-                <div class="row">
-                    <label>URL:</label> <span [innerText]="fav.fUrl"></span>
+    <div class="row">
+        <br/>
+    </div>
+
+    <div class="row">
+        <ul class="grid" [hidden]="!gridView">
+            <li *ngFor="let fav of favoritesList | async | searchfilter: 'fName,fUrl' : searchQuery">
+                <div class="jumbotron">
+                    <div class="row actions">
+                        <fa [name]="'pencil-square-o'" (click)="updateFavorite(updateContent, fav)"></fa>
+                        <fa [name]="'trash-o'" (click)="removeFavorite(removeContent, fav)"></fa>
+                    </div>
+                    <div class="row">
+                        <span [innerText]="fav.fName"></span>
+                    </div>
+                    <div class="row">
+                        <span [innerText]="fav.fUrl"></span>
+                    </div>
+
                 </div>
             </li>
-        </ul>-->
-        <table class="table table-hover">
+        </ul>
+        <table class="table table-hover" [hidden]="gridView">
             <thead>
                 <th>Website name</th>
                 <th>URL</th>
                 <th></th>
             </thead>
             <tbody>
-                <tr *ngFor="let fav of favoritesList | async">
+                <tr *ngFor="let fav of favoritesList | async | searchfilter: 'fName,fUrl' : searchQuery">
                     <td [innerText]="fav.fName"></td>
                     <td [innerText]="fav.fUrl"></td>
                     <td>
                         <div class="actions">
-                            <i class="glyphicon glyphicon-edit" (click)="updateFavorite(fav)"></i>
-                            <i class="glyphicon glyphicon-trash" (click)="removeFavorite(fav)"></i>
+                            <fa [name]="'pencil-square-o'" (click)="updateFavorite(updateContent, fav)"></fa>
+                            <fa [name]="'trash-o'" (click)="removeFavorite(removeContent, fav)"></fa>
                         </div>
                     </td>
                 </tr>

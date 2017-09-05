@@ -21,6 +21,10 @@ import {LoginPageComponent} from "./pages/login-page.component";
 import { LoggedInGuard } from "app/shared/logged-in-guard";
 import { DashboardPageComponent } from './pages/dashboard-page.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { SearchFilterPipe } from './search-filter-pipe';
+import { RemoveModalComponent } from './remove-modal/remove-modal.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
 const routes: Routes = [
     { path: 'register', component: RegisterPageComponent },
@@ -43,7 +47,9 @@ const routes: Routes = [
         AllInOnePageComponent,
         LoginPageComponent,
         DashboardPageComponent,
-        FavoritesComponent
+        FavoritesComponent,
+        SearchFilterPipe,
+        RemoveModalComponent
     ],
     imports: [
         BrowserModule,
@@ -54,7 +60,9 @@ const routes: Routes = [
         AngularFireModule.initializeApp(firebaseConfig, "favorites-webapp"),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        NgbModule.forRoot(),
+        Angular2FontawesomeModule
     ],
     providers: [AuthService, LoggedInGuard],
     bootstrap: [AppComponent]
