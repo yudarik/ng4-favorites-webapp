@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h4 class="modal-title">Edit website</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body" [formGroup]="favorite">
+    <div class="form-group">
+        <label for>Website Name:</label>
+        <input type="text" formControlName="fName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for>URL:</label>
+        <input type="url" formControlName="fUrl" class="form-control">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close(favorite)">Save changes</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss('dismiss')">Cancel</button>
+</div>

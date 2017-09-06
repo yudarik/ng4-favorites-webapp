@@ -24,7 +24,8 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { SearchFilterPipe } from './search-filter-pipe';
 import { RemoveModalComponent } from './remove-modal/remove-modal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import { UpdateModalComponent } from './update-modal/update-modal.component'
 
 const routes: Routes = [
     { path: 'register', component: RegisterPageComponent },
@@ -49,7 +50,8 @@ const routes: Routes = [
         DashboardPageComponent,
         FavoritesComponent,
         SearchFilterPipe,
-        RemoveModalComponent
+        RemoveModalComponent,
+        UpdateModalComponent
     ],
     imports: [
         BrowserModule,
@@ -65,7 +67,8 @@ const routes: Routes = [
         Angular2FontawesomeModule
     ],
     providers: [AuthService, LoggedInGuard],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [RemoveModalComponent, UpdateModalComponent]
 })
 export class AppModule {
 }
