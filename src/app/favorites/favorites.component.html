@@ -38,17 +38,16 @@
         <ul class="grid" [hidden]="!gridView">
             <li *ngFor="let fav of favoritesList | async | searchfilter: 'fName,fUrl' : searchQuery">
                 <div class="jumbotron">
-                    <div class="row actions">
-                        <fa [name]="'pencil-square-o'" (click)="updateFavorite(updateContent, fav)"></fa>
-                        <fa [name]="'trash-o'" (click)="removeFavorite(removeContent, fav)"></fa>
-                    </div>
                     <div class="row">
                         <span [innerText]="fav.fName"></span>
                     </div>
                     <div class="row">
-                        <span [innerText]="fav.fUrl"></span>
+                        <a target="_blank" [href]="fav.fUrl" [innerText]="fav.fUrl"></a>
                     </div>
-
+                    <div class="row actions">
+                        <fa [name]="'pencil-square-o'" (click)="updateFavorite(fav)"></fa>
+                        <fa [name]="'trash-o'" (click)="removeFavorite(fav)"></fa>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -61,7 +60,7 @@
             <tbody>
                 <tr *ngFor="let fav of favoritesList | async | searchfilter: 'fName,fUrl' : searchQuery">
                     <td [innerText]="fav.fName"></td>
-                    <td [innerText]="fav.fUrl"></td>
+                    <td><a target="_blank" [href]="fav.fUrl" [innerText]="fav.fUrl"></a></td>
                     <td>
                         <div class="actions">
                             <fa [name]="'pencil-square-o'" (click)="updateFavorite(fav)"></fa>
