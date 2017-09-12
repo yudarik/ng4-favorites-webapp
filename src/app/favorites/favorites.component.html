@@ -17,13 +17,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <h2>Favorite sites</h2>
+        <div class="col-12 col-md-5">
+            <h2>Favorite sites #<span [innerText]="(favoritesList|async)?.length"></span></h2>
         </div>
-        <div class="col-sm-4">
+        <div class="col-6 col-md-4">
             <input type="text" class="form-control" placeholder="Filter by website name or URL" [(ngModel)]="searchQuery">
         </div>
-        <div class="col-sm-2 btn-group-md" role="group">
+        <div class="col-6 col-md-3 btn-group-md" role="group">
             <button type="button" class="btn btn-md btn-default" (click)="toggleGridView()">
                 <fa [name]="'th-large'" [hidden]="gridView"></fa>
                 <fa [name]="'th-list'" [hidden]="!gridView"></fa>
@@ -38,8 +38,10 @@
         <ul class="grid" [hidden]="!gridView">
             <li *ngFor="let fav of favoritesList | async | searchfilter: 'fName,fUrl' : searchQuery">
                 <div class="jumbotron">
-                    <div class="row">
-                        <span [innerText]="fav.fName"></span>
+                    <div class="media row">
+                        <img src="..." class="img-fluid" alt="Responsive image">
+
+                        <p [innerText]="fav.fName"></p>
                     </div>
                     <div class="row">
                         <a target="_blank" [href]="fav.fUrl" [innerText]="fav.fUrl"></a>

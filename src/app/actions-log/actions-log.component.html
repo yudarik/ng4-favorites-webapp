@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <h2>Actions Log</h2>
+    </div>
+    <div class="row">
+        <table class="table table-hover" [hidden]="gridView">
+            <thead>
+                <th>Date/Time</th>
+                <th>Action</th>
+                <th>Website</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let action of actionsList | async">
+                <td [innerText]="action.datetime|date: 'dd/MM/yyyy HH:mm'"></td>
+                <td [innerText]="action.action"></td>
+                <td><a target="_blank" [href]="action.fUrl" [innerText]="action.fName"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from "@angular/forms"
+import { FormGroup, FormControl } from "@angular/forms"
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import { RemoveModalComponent } from "../remove-modal/remove-modal.component";
 import { UpdateModalComponent } from "../update-modal/update-modal.component";
+import { ActionsLogService } from "../actions-log/actions-log.service"
 
 export interface FavInterface {
     $key: string;
@@ -22,12 +23,17 @@ export class FavoritesComponent implements OnInit {
     public favorite: FormGroup;
 
     public favoritesList: FirebaseListObservable<any>;
+
     public addFormVisible: boolean;
     public gridView: boolean;
 
     private closeResult: string;
 
-    constructor(private db: AngularFireDatabase, private modalService: NgbModal) {
+    constructor(
+        private db: AngularFireDatabase,
+        private modalService: NgbModal,
+        private actionSrv: ActionsLogService) {
+
         this.favoritesList = db.list('/items');
     }
 
@@ -48,6 +54,9 @@ export class FavoritesComponent implements OnInit {
 
     addFavorite() {
         this.favoritesList.push(this.favorite.value);
+
+        this.actionSrv.add(this.favorite.value);
+
         this.togleAddForm();
     }
 
@@ -61,6 +70,7 @@ export class FavoritesComponent implements OnInit {
 
         modalRef.result.then(res => {
             this.favoritesList.update(fav.$key, res.value);
+            this.actionSrv.update(fav);
         },(reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
@@ -72,6 +82,7 @@ export class FavoritesComponent implements OnInit {
             .result.then((result) => {
                 this.closeResult = `Closed with: ${result}`;
                 this.favoritesList.remove(fav.$key);
+                this.actionSrv.remove(fav);
             }, (reason) => {
                 this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
@@ -91,6 +102,7 @@ export class FavoritesComponent implements OnInit {
     togleAddForm() {
         this.addFormVisible = !this.addFormVisible;
     }
+
 }
 
 

@@ -1,12 +1,6 @@
 <h1>
     {{title}}
 </h1>
-
-<!--<div class="row" *ngIf="isLoggedIn|async">
-    <app-display-user></app-display-user>
-</div>-->
-
-
 <app-favorites></app-favorites>
 
 <div class="row" *ngIf="!(isLoggedIn|async)">

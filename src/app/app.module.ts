@@ -25,15 +25,19 @@ import { SearchFilterPipe } from './search-filter-pipe';
 import { RemoveModalComponent } from './remove-modal/remove-modal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
-import { UpdateModalComponent } from './update-modal/update-modal.component'
+import { UpdateModalComponent } from './update-modal/update-modal.component';
+import { ActionsLogComponent } from './actions-log/actions-log.component';
+import { ActionsLogService } from "./actions-log/actions-log.service";
 
 const routes: Routes = [
     { path: 'register', component: RegisterPageComponent },
     { path: 'all-in-one', component: AllInOnePageComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'login', component: LoginPageComponent },
-    { path: 'dashboard', component: DashboardPageComponent, canActivate: [LoggedInGuard] },
-    { path: '', component: HomePageComponent }
+    //{ path: 'dashboard', component: DashboardPageComponent, canActivate: [LoggedInGuard] },
+    { path: '', component: FavoritesComponent },
+    { path: 'favorites', component: FavoritesComponent },
+    { path: 'actions', component: ActionsLogComponent }
 ];
 
 @NgModule({
@@ -51,7 +55,8 @@ const routes: Routes = [
         FavoritesComponent,
         SearchFilterPipe,
         RemoveModalComponent,
-        UpdateModalComponent
+        UpdateModalComponent,
+        ActionsLogComponent
     ],
     imports: [
         BrowserModule,
@@ -66,7 +71,7 @@ const routes: Routes = [
         NgbModule.forRoot(),
         Angular2FontawesomeModule
     ],
-    providers: [AuthService, LoggedInGuard],
+    providers: [AuthService, LoggedInGuard, ActionsLogService],
     bootstrap: [AppComponent],
     entryComponents: [RemoveModalComponent, UpdateModalComponent]
 })
