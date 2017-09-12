@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from "@angular/forms"
+import { FormGroup, FormControl, FormBuilder } from "@angular/forms"
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbActiveModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import { RemoveModalComponent } from "../remove-modal/remove-modal.component";
 import { UpdateModalComponent } from "../update-modal/update-modal.component";
-import { ActionsLogService } from "../actions-log/actions-log.service"
+import { ActionsLogService } from "../actions-log/actions-log.service";
 
 export interface FavInterface {
     $key: string;

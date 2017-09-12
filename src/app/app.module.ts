@@ -35,7 +35,7 @@ const routes: Routes = [
     { path: 'reset-password', component: ResetPasswordComponent },
     { path: 'login', component: LoginPageComponent },
     //{ path: 'dashboard', component: DashboardPageComponent, canActivate: [LoggedInGuard] },
-    { path: '', component: FavoritesComponent },
+    { path: '', component: HomePageComponent },
     { path: 'favorites', component: FavoritesComponent },
     { path: 'actions', component: ActionsLogComponent }
 ];
